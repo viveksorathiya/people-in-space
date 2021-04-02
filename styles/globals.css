@@ -1,16 +1,109 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+.earth_container {
+	/*width: 500px;*/
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+}
+.back {
+	height: 110vh;
+	width: 110vw;
+	bottom: 0;
+	position: fixed;
+}
+.layer {
+	height: 100vh;
+	width: 100%;
+	bottom: 0;
+	position: fixed;
+	/*top: ;*/
+}
+.earth {
+	height: 100vh;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.ss {
+	height: 100vh;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 20px;
+}
+.moon {
+	height: 120vh;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.object {
+	height: 150px;
+}
+.name {
+	color: #000;
+	margin-left: 50px;
+	margin-top: -20px;
+	background-color: #fff;
+	padding: 5px;
+	border-radius: 10px;
+}
+.name:hover {
+	color: black;
+}
+
+.menu-icon {
+	position: fixed;
+	margin: 10px;
+	color: #fff;
+}
+
+@keyframes floating {
+	0% {
+		transform: translate(0, 0px);
+	}
+	50% {
+		transform: translate(0, 15px);
+	}
+	100% {
+		transform: translate(0, -0px);
+	}
+}
+
+@media (max-width: 764px) {
+	.earth {
+		height: 50vh;
+		top: 50vh;
+	}
+	.ss {
+		height: 50vh;
+		margin-top: 20vh;
+	}
+	.moon {
+		height: 50vh;
+		margin-top: 20vh;
+	}
+	.object {
+		height: 80px;
+		animation: floating 3s ease-in-out infinite;
+	}
+	.name {
+		margin-top: -15px;
+		margin-left: 20px;
+		font-size: 0.6rem;
+	}
 }

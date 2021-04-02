@@ -1,65 +1,109 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import axios from "axios";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import styles from "../styles/Home.module.css";
+import Parallax from "../utils/parallax";
+import { Popover } from "@material-ui/core";
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+export default function Home(props) {
+	const [anchorEl, setAnchorEl] = useState(null);
+	// const [show, setShow] = useState(false);
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+	const handlePopoverOpen = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+	const handlePopoverClose = () => {
+		setAnchorEl(null);
+	};
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+	const open = Boolean(anchorEl);
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+	useEffect(() => {
+		var objects = document.getElementsByClassName("object");
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+		var scene = document.getElementById("scene");
+		console.log(scene);
+		if (scene !== null) {
+      var parallax = new Parallax(scene);
+      
+			for (let i = 0; i < objects.length; i++) {
+				objects[i].style.top = `${Math.random() * 60 + 10}%`;
+				objects[i].style.left = `${Math.random() * 60 + 10}%`;
+			}
+		}
+		return () => {};
+	});
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+	const getImage = (index) => {
+		if (props.data.number > 7) {
+			return `a${Math.floor(Math.random() * 6 + 1)}.png`;
+		}
+		return `a${index}.png`;
+	};
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+	return (
+		<div className={styles.container}>
+			<Head>
+				<title>People in space</title>
+				{/* <link rel="icon" href="/favicon.ico" /> */}
+			</Head>
+
+			<main className={styles.main}>
+				<img className="back" src="back-min.png" />
+				<img className="earth" src="earth.png" />
+				<div className="earth_container" id="scene">
+					<img className="ss" src="spacestation.png" data-depth="0.2" />
+					<img className="moon" src="moon.png" data-depth="0.2" />
+					<img className="layer" src="text.png" data-depth="0.3" />
+					<img className="layer" src="ob1.png" data-depth="0.6" />
+					<img className="layer" src="ob2.png" data-depth="0.4" />
+					<img className="layer" src="ob3.png" data-depth="0.5" />
+					{props.data.message === "success" &&
+						props.data.people.map((astro, index) => (
+							<>
+								<div
+									key={"div" + index}
+									className="object"
+									id="object"
+									data-depth="0.1">
+									<img
+										key={"img" + index}
+										src={getImage(index + 1)}
+										style={{ height: "inherit" }}
+									/>
+									<h5 key={"text" + index} className="name">
+										{astro.name}
+									</h5>
+								</div>
+							</>
+						))}
+					<Popover
+						open={open}
+						anchorEl={anchorEl}
+						anchorOrigin={{
+							vertical: "bottom",
+							horizontal: "left",
+						}}
+						transformOrigin={{
+							vertical: "top",
+							horizontal: "left",
+						}}
+						onClose={handlePopoverClose}
+						disableRestoreFocus>
+						Hello there
+					</Popover>
+					<div className="menu-icon">Menu</div>
+				</div>
+			</main>
+		</div>
+	);
 }
+
+Home.getInitialProps = async () => {
+	const res = await axios.get("http://api.open-notify.org/astros.json");
+	const data = res.data;
+	return {
+		data,
+	};
+};
