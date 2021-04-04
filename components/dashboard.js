@@ -23,8 +23,8 @@ const animatorGeneral = { duration: { enter: 200, exit: 200, stagger: 30 } };
 const audioSettings = { common: { volume: 0.5 } };
 const playersSettings = {
 	object: { src: [SOUND_OBJECT_URL] },
-	assemble: { src: [SOUND_ASSEMBLE_URL], loop: true },
-	type: { src: [SOUND_TYPE_URL], loop: true },
+	assemble: { src: [SOUND_ASSEMBLE_URL], loop: false },
+	type: { src: [SOUND_TYPE_URL], loop: false },
 	click: { src: [SOUND_CLICK_URL] },
 };
 const bleepsSettings = {
