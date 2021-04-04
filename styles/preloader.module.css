@@ -253,3 +253,13 @@
     opacity: 0;
   }
 }
+
+.warning {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .warning {
+    display: block;
+  }
+}

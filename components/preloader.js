@@ -22,10 +22,10 @@ export default function Loader() {
 						<span></span>
 						<span></span>
 					</div>
-				<h5 style={{ color: '#fff', position: 'fixed', left: '10px', bottom: '10px'}}>Use Desktop for full experience</h5>
+				<h5 className={ styles.warning} style={{ color: '#fff', position: 'fixed', left: '10px', bottom: '10px'}}>Use Desktop for full experience</h5>
 				<br/>
-					<h1 className={styles.h1}>Taking into space</h1>
-				</div>
+				<h1 className={styles.h1}>Taking into space</h1>
+			</div>
 			</>
 		);
 }
