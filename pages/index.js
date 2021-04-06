@@ -35,13 +35,14 @@ export default function Home(props) {
 			if (document.readyState === "complete") {
 				setLoaded(true);
 				positioning();
-				document.onreadystatechange = () => {
-					if (document.readyState === "complete") {
-						setLoaded(true);
-						positioning();
-					}
-				};
+				
 			}
+			document.onreadystatechange = () => {
+				if (document.readyState === "complete") {
+					setLoaded(true);
+					positioning();
+				}
+			};
 		}, 3000);
 
 		return () => {};
