@@ -42,7 +42,7 @@ export default function Home(props) {
 					}
 				};
 			}
-		}, 10000);
+		}, 3000);
 
 		return () => {};
 	}, []);
